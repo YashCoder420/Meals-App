@@ -27,6 +27,7 @@ function showMealList(){
                         isFav=true;
                     }
                 }
+                //if meal is in the favorite list
                 if (isFav) {
                     html += `
                 <div id="card" class="card mb-3" style="width: 20rem;">
@@ -40,6 +41,7 @@ function showMealList(){
                     </div>
                 </div>
                 `;
+                    //else, if it's not in favorite list
                 } else {
                     html += `
                 <div id="card" class="card mb-3" style="width: 20rem;">
@@ -53,6 +55,8 @@ function showMealList(){
                     </div>
                 </div>
                 `;
+                    //if the searched meal is not found in mealDB Api
+                    //and image will be shown
                 }  
             });
         } else {
@@ -77,7 +81,7 @@ function showMealList(){
 
 
 
-//its shows full meal details in main
+//its shows full meal details in main after clicking on detail button
 async function showMealDetails(id) {
     let url="https://www.themealdb.com/api/json/v1/1/lookup.php?i=";
     let html="";
@@ -109,12 +113,14 @@ async function showMealDetails(id) {
 
 
 
-// its shows all favourites meals in favourites body
+// its shows all favourites meals in favourites body 
 async function showFavMealList() {
     let arr=JSON.parse(localStorage.getItem("favouriteSection"));
     let url="https://www.themealdb.com/api/json/v1/1/lookup.php?i=";
     let html="";
     if (arr.length==0) {
+        //when favorite list is empty
+        //it will load the text below
         html += `
             <div class="page-wrap d-flex flex-row align-items-center">
                 <div class="container">
@@ -130,6 +136,7 @@ async function showFavMealList() {
             </div>
             `;
     } else {
+        //it will display the data of the meal that was added to favorite
         for (let index = 0; index < arr.length; index++) {
             await fetchMealsFromApi(url,arr[index]).then(data=>{
                 html += `
